@@ -1,15 +1,25 @@
 spring:
   application:
-    name: gateway
+    name: ms-reservas
   banner:
     location: classpath:banner.txt
 
 server:
-  port: 8844
   error:
     include-message: always
     include-binding-errors: always
     include-exception: true
+
+spring.datasource:
+  url: jdbc:postgresql://localhost:5432/SazonDB
+  username: alejandro
+  password: 1234
+
+spring.rabbitmq:
+  host: localhost
+  port: 5672
+  username: admin
+  password: admin
 
 app.eureka-server: localhost
 
@@ -17,21 +27,27 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${app.eureka-server}:8761/eureka/
-    initialInstanceInfoReplicationIntervalSeconds: 5
-    registryFetchIntervalSeconds: 5
   instance:
     leaseRenewalIntervalInSeconds: 5
     leaseExpirationDurationInSeconds: 5
 
-spring.security.oauth2.resourceserver.jwt:
-  issuer-uri: http://localhost:8080/realms/SazonRealm
-
 management:
-  endpoint.health.show-details: "ALWAYS"
-  endpoints.web.exposure.include: "*"
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 ---
 spring.config.activate.on-profile: docker
+
+spring.datasource:
+  url: jdbc:postgresql://sazon-postgres:5432/SazonDB
+
+spring.rabbitmq:
+  host: rabbitmq
 
 app.eureka-server: eureka-server
 
@@ -40,7 +56,5 @@ eureka:
     serviceUrl:
       defaultZone: http://eureka-server:8761/eureka/
 
-spring.security.oauth2.resourceserver.jwt:
-  issuer-uri: http://host.docker.internal:8080/realms/SazonRealm
-
-spring.cloud.config.uri: http://config-server:8888
+spring.cloud.config:
+  uri: http://config-server:8888
