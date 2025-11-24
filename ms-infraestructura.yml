@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: ms-infraestructura
+
+  banner:
+    location: classpath:banner.txt
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+
+spring.datasource:
+  url: jdbc:postgresql://localhost:5432/SazonDB
+  username: alejandro
+  password: 1234
+
+spring.rabbitmq:
+  host: localhost
+  port: 5672
+  username: admin
+  password: admin
+
+app.eureka-server: localhost
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${app.eureka-server}:8761/eureka/
+
+management:
+  endpoint.health.show-details: "ALWAYS"
+  endpoints.web.exposure.include: "*"
+
+---
+spring.config.activate.on-profile: docker
+
+spring.datasource.url: jdbc:postgresql://sazon-postgres:5432/SazonDB
+spring.rabbitmq.host: rabbitmq
+
+app.eureka-server: eureka-server
+
+eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
+
+spring.cloud.config.uri: http://config-server:8888

@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: eureka-server
+
+  banner:
+    location: classpath:banner.txt
+
+server:
+  port: 8761
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 5
+
+management:
+  endpoint.health.show-details: "ALWAYS"
+  endpoints.web.exposure.include: "*"
+
+---
+spring.config.activate.on-profile: docker
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+
+spring.cloud.config:
+  uri: http://config-server:8888
