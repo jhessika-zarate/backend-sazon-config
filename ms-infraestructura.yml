@@ -14,7 +14,7 @@ server:
 spring.datasource:
   url: jdbc:postgresql://localhost:5432/SazonDB
   username: alejandro
-  password: 1234
+  password: '{cipher}d446ab02c6cd0e6ad82865150df2b7fbfabfc90c6713579d0c9e3f87a8761615'
 
 spring.rabbitmq:
   host: localhost
