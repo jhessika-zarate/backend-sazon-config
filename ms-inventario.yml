@@ -4,6 +4,12 @@ spring:
 
   banner:
     location: classpath:banner.txt
+  security:
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri: http://localhost:8080/realms/SazonRealm
+            jwk-set-uri: http://host.docker.internal:8080/realms/SazonRealm/protocol/openid-connect/certs
 
 server:
   error:
