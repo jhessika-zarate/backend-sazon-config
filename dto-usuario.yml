@@ -6,7 +6,7 @@ spring:
 
   # Base de datos PostgreSQL (contenedor)
   datasource:
-    url: jdbc:postgresql://localhost:5432/SazonDB
+    url: jdbc:postgresql://sazon-postgres:5432/SazonDB
     username: alejandro
     password: "1234"
     driver-class-name: org.postgresql.Driver
