@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: ms-facturacion
+
+  banner:
+    location: classpath:banner.txt
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/SazonRealm
+          jwk-set-uri: http://host.docker.internal:8080/realms/SazonRealm/protocol/openid-connect/certs
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+
+spring.datasource:
+  url: jdbc:postgresql://localhost:5432/SazonDB
+  username: alejandro
+  password: '{cipher}6d2e3f56d6355574890e8ce343f4d483fd499249985fc19b63153fad1f209ca7'
+
+spring.rabbitmq:
+  host: localhost
+  port: 5672
+  username: admin
+  password: admin
+
+app.eureka-server: localhost
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${app.eureka-server}:8761/eureka/
+
+management:
+  endpoint.health.show-details: "ALWAYS"
+  endpoints.web.exposure.include: "*"
+
+---
+spring.config.activate.on-profile: docker
+
+spring.datasource.url: jdbc:postgresql://sazon-postgres:5432/SazonDB
+spring.rabbitmq.host: rabbitmq
+
+app.eureka-server: eureka-server
+
+eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka/
+
+spring.cloud.config.uri: http://config-server:8888
+
+sazon.config-marker: "desde-config-server facturacion 55533"
