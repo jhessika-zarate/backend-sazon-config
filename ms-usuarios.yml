@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/SazonDB
     username: alejandro
-    password: "1234"
+    password: '{cipher}29a6528374cd1a8153698d9d17b49215ff17ec20cbc7741a1f29980235d3f8dc'
     driver-class-name: org.postgresql.Driver
 
   jpa:
